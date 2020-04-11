@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
+const cors = require('cors');
 
 const uploadRoute = require('./routes/upload');
 dotenv.config({ path: './config.env' });
@@ -14,6 +15,7 @@ mongoose.connect(
 );
 
 //Add Middlewares
+app.use(cors());
 app.use(express.json());
 
 //Add Route Middlewares
