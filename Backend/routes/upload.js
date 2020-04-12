@@ -15,13 +15,22 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('image'), async (req, res, next) => {
   console.log(req.file);
   const data = new Upload({
-    path: req.file.path,
+    path: `http://localhost:3000/api/v1/${req.file.path}`,
   });
   try {
     const savedData = await data.save();
-    res.status(201).json(savedData);
+    return res.status(201).json(savedData);
   } catch (error) {
-    res.status(400).json(error);
+    return res.status(400).json(error);
+  }
+});
+
+router.get('/', async (req, res, next) => {
+  try {
+    const data = await Upload.find().select('_id path').exec();
+    return res.status(200).json(data);
+  } catch (error) {
+    return res.status(400).json(error);
   }
 });
 
