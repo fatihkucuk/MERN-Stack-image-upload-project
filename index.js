@@ -20,11 +20,10 @@ app.use(cors());
 app.use(express.json());
 app.use('/api/v1/uploaded-images', express.static('uploaded-images'));
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static('Frontend/build'));
+  app.use(express.static('client/build'));
 
-  const parentPath = path.join(__dirname, '../');
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(parentPath, 'Frontend', 'build', 'index.html'));
+    res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
   });
 }
 
