@@ -15,7 +15,7 @@ const upload = multer({ storage: storage });
 router.post('/', upload.single('image'), async (req, res, next) => {
   console.log(req.file);
   const data = new Upload({
-    path: `http://localhost:3000/api/v1/${req.file.path}`,
+    path: `https://nodejs-image-upload.herokuapp.com/api/v1/${req.file.path}`,
   });
   try {
     const savedData = await data.save();
