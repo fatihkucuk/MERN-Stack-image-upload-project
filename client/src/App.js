@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './App.css';
 import axios from 'axios';
+import { API_URL } from './constants';
 
 function App() {
   const [images, setImages] = useState([]);
@@ -13,7 +14,7 @@ function App() {
 
   const getImages = () => {
     axios
-      .get('https://nodejs-image-upload.herokuapp.com/api/v1/upload')
+      .get(`${API_URL}/upload`)
       .then((res) => {
         setImages(res.data);
       })
@@ -27,11 +28,9 @@ function App() {
     const formData = new FormData();
     formData.append('image', file, file.name);
     axios
-      .post('https://nodejs-image-upload.herokuapp.com/api/v1/upload', formData)
+      .post(`${API_URL}/upload`, formData)
       .then((res) => {
-        setImagePath(
-          `https://nodejs-image-upload.herokuapp.com/api/v1/${res.data.path}`
-        );
+        setImagePath(`${res.data.path}`);
         setImages([...images, res.data]);
       })
       .catch((err) => console.log(err));
@@ -53,7 +52,7 @@ function App() {
     <div className="App">
       <input type="file" onChange={fileChangeHandler}></input>
       {file && <button onClick={uploadHandler}>Upload</button>}
-      {<div>{imageList}</div>}
+      <div>{imageList}</div>
     </div>
   );
 }
