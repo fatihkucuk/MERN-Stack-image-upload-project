@@ -37,14 +37,17 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const imageList = images.map((image) => {
-    return (
-      <img
-        key={image._id}
-        src={image.path}
-        style={{ width: 200, height: 200, margin: 20 }}></img>
-    );
-  });
+  const imageList =
+    images &&
+    images.length > 0 &&
+    images.map((image) => {
+      return (
+        <img
+          key={image._id}
+          src={image.path}
+          style={{ width: 200, height: 200, margin: 20 }}></img>
+      );
+    });
 
   return (
     <div className="App">
