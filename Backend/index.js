@@ -17,6 +17,7 @@ mongoose.connect(
 //Add Middlewares
 app.use(cors());
 app.use(express.json());
+app.use('/api/v1/uploaded-images', express.static('uploaded-images'));
 
 //Add Route Middlewares
 app.use('/api/v1/upload', uploadRoute);

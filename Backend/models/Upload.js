@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const uploadSchema = new mongoose.Schema({
-  name: {
+  path: {
     type: String,
   },
   createdDate: {

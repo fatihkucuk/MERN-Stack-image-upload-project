@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { Upload } = require('../models/Upload');
-const mongoose = require('mongoose');
 const multer = require('multer');
 
 const storage = multer.diskStorage({
@@ -13,16 +12,17 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-router.post('/', upload.single('image'), (req, res, next) => {
+router.post('/', upload.single('image'), async (req, res, next) => {
+  console.log(req.file);
   const data = new Upload({
-    _id: new mongoose.Types.ObjectId(),
-    name: 'test',
+    path: req.file.path,
   });
-
-  data
-    .save()
-    .then((result) => res.status(201).send('Created!'))
-    .catch((err) => res.status(400).send(err));
+  try {
+    const savedData = await data.save();
+    res.status(201).json(savedData);
+  } catch (error) {
+    res.status(400).json(error);
+  }
 });
 
 module.exports = router;
