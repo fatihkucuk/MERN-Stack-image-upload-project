@@ -13,13 +13,12 @@ function App() {
 
   const getImages = () => {
     axios
-      .get('http://localhost:3000/api/v1/upload')
+      .get('https://nodejs-image-upload.herokuapp.com/api/v1/upload')
       .then((res) => {
         setImages(res.data);
       })
       .catch((err) => alert(err));
   };
-
   const fileChangeHandler = (e) => {
     setFile(e.target.files[0]);
   };
@@ -28,9 +27,11 @@ function App() {
     const formData = new FormData();
     formData.append('image', file, file.name);
     axios
-      .post('http://localhost:3000/api/v1/upload', formData)
+      .post('https://nodejs-image-upload.herokuapp.com/api/v1/upload', formData)
       .then((res) => {
-        setImagePath(`http://localhost:3000/api/v1/${res.data.path}`);
+        setImagePath(
+          `https://nodejs-image-upload.herokuapp.com/api/v1/${res.data.path}`
+        );
         setImages([...images, res.data]);
       })
       .catch((err) => console.log(err));
